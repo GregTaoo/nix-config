@@ -31,7 +31,7 @@
     shellAliases = {
       osupd = ''
         sudo find /etc/nixos/* -depth -not -name \"*.lock\" -delete
-        sudo cp -r /home/gregtao/NixConfig/* /etc/nixos
+        sudo rsync -av --exclude '.git' /home/gregtao/NixConfig/* /etc/nixos/
         sudo nixos-rebuild switch
       '';
     };
