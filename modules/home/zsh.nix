@@ -34,6 +34,20 @@
         sudo rsync -av --exclude '.git' /home/${settings.username}/NixConfig/* /etc/nixos/
         sudo nixos-rebuild switch
       '';
+      osgc = ''
+        sudo nix-collect-garbage --delete-older-than ${settings.cleanGarbageOlderThan}
+        nix-collect-garbage --delete-older-than ${settings.cleanGarbageOlderThan}
+      '';
+      osclash = ''
+        if sudo tmux has-session -t "osclash" 2>/dev/null; then
+          echo "Already exists."
+          sudo tmux attach -t "osclash"
+        else
+          echo "Starting new session..."
+          sudo tmux new-session -d -s "osclash" "sudo clash-verge"
+          echo "Done."
+        fi
+      '';
       lolcat = "lolcat 2> /dev/null";
     };
   };

@@ -79,6 +79,7 @@
     wget
     neofetch
     git
+    tmux
     firefox
     clash-verge-rev
   ];
