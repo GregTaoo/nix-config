@@ -13,10 +13,16 @@
   } @ inputs: 
   let
     inherit (self) outputs;
+    settings = import ./settings.nix;
+    args = {
+      inherit inputs outputs settings;
+    };
   in {
     nixosConfigurations = {
-      nixos = nixpkgs.lib.nixosSystem {
+      "${settings.hostName}" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+
+        specialArgs = args;
 
         modules = [
           # System config
@@ -29,16 +35,14 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
-            home-manager.users.gregtao = {
+            home-manager.users.${settings.username} = {
               imports = [
                 ./home.nix
               ];
             };
 
             # Pass arguments to home.nix
-            home-manager.extraSpecialArgs = {
-              inherit inputs outputs;
-            };
+            home-manager.extraSpecialArgs = args;
           }
         ];
       };

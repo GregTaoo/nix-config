@@ -1,8 +1,8 @@
-{ config, pkgs, inputs, outputs, ... }:
+{ config, pkgs, inputs, outputs, settings, ... }:
 
 {
-  home.username = "gregtao";
-  home.homeDirectory = "/home/gregtao";
+  home.username = settings.username;
+  home.homeDirectory = "/home/${settings.username}";
   
   imports = [
     ./modules/home-manager.nix
@@ -12,22 +12,26 @@
     cowsay
     lolcat
 
+    parsec-bin
+
     kdePackages.kate
     pandoc
     thunderbird
+    kdePackages.kolourpaint
 
     obsidian
     jetbrains.clion
     jetbrains.webstorm
     jetbrains.idea-ultimate
+    wpsoffice
 
     qq
   ];
   
   programs.git = {
     enable = true;
-    userName = "GregTao";
-    userEmail = "gregtaoo@outlook.com";
+    userName = settings.usernameUpper;
+    userEmail = settings.email;
   };
 
   # This value determines the Home Manager release that your

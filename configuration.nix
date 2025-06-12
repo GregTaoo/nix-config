@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, settings, ... }:
 
 {
   imports =
@@ -10,7 +10,7 @@
       ./hardware-configuration.nix
     ];
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = settings.hostName; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Configure network proxy if necessary
@@ -60,9 +60,9 @@
   programs.zsh.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.gregtao = {
+  users.users.${settings.username} = {
     isNormalUser = true;
-    description = "GregTao";
+    description = settings.usernameUpper;
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
   };
@@ -77,6 +77,7 @@
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    neofetch
     git
     firefox
     clash-verge-rev

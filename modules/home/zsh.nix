@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, settings, ... }:
 
 {
   home.packages = with pkgs; [
@@ -30,10 +30,11 @@
 
     shellAliases = {
       osupd = ''
-        sudo find /etc/nixos/* -depth -not -name \"*.lock\" -delete
-        sudo rsync -av --exclude '.git' /home/gregtao/NixConfig/* /etc/nixos/
+        sudo find /etc/nixos/ -mindepth 1 -depth \( ! -name "*.lock" ! -name "hardware-configuration.nix" \) -delete
+        sudo rsync -av --exclude '.git' /home/${settings.username}/NixConfig/* /etc/nixos/
         sudo nixos-rebuild switch
       '';
+      lolcat = "lolcat 2> /dev/null";
     };
   };
 
