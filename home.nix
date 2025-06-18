@@ -23,9 +23,11 @@
     jetbrains.clion
     jetbrains.webstorm
     jetbrains.idea-ultimate
+    jetbrains.datagrip
     wpsoffice
 
     qq
+    wechat-uos
   ];
   
   programs.git = {
