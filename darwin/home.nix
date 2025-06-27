@@ -2,7 +2,6 @@
 
 {
   home.username = settings.username;
-  home.homeDirectory = "/Users/${settings.username}";
   
   imports = [ ./home-modules.nix ];
 

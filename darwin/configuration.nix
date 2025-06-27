@@ -1,6 +1,10 @@
 { config, pkgs, settings, ... }:
 
 {
+  users.users."${settings.username}" = {
+    home = "/Users/${settings.username}";
+  };
+
   # Enable zsh.
   programs.zsh.enable = true;
   
