@@ -1,48 +1,73 @@
 {
-  description = "NixOS configuration";
+  description = "Nix configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+
+    nix-darwin.url = "github:nix-darwin/nix-darwin/master";
+    nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs = { 
-    self, nixpkgs, home-manager, ...
+    self, 
+    nixpkgs, 
+    home-manager, 
+    nix-darwin, 
+    ...
   } @ inputs: 
   let
     inherit (self) outputs;
     settings = import ./settings.nix;
-    args = {
-      inherit inputs outputs settings;
-    };
+    arguments = { inherit inputs outputs settings; };
   in {
     nixosConfigurations = {
       "${settings.hostName}" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-
-        specialArgs = args;
+        specialArgs = arguments;
 
         modules = [
           # System config
-          ./configuration.nix
+          ./nixos/configuration.nix
 
           # Include self-defined modules.
-          ./modules/os.nix
+          ./nixos/os-modules.nix
 
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
 
             home-manager.users.${settings.username} = {
-              imports = [
-                ./home.nix
-              ];
+              imports = [ ./nixos/home.nix ];
             };
 
             # Pass arguments to home.nix
-            home-manager.extraSpecialArgs = args;
+            home-manager.extraSpecialArgs = arguments;
+          }
+        ];
+      };
+    };
+
+    darwinConfigurations = {
+      "${settings.darwinHostName}" = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = arguments;
+
+        modules = [ 
+          ./darwin/configuration.nix
+
+          home-manager.darwinModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.${settings.username} = {
+              imports = [ ./darwin/home.nix ];
+            };
+
+            # Pass arguments to home.nix
+            home-manager.extraSpecialArgs = arguments;
           }
         ];
       };

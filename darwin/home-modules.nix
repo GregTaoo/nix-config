@@ -1,0 +1,9 @@
+{ config, pkgs, ... }:
+
+{
+  imports = [
+    ../modules/home/zsh.nix
+    ../modules/home/direnv.nix
+    ../modules/home/nvim.nix
+  ];
+}

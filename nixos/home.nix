@@ -4,9 +4,7 @@
   home.username = settings.username;
   home.homeDirectory = "/home/${settings.username}";
   
-  imports = [
-    ./modules/home-manager.nix
-  ];
+  imports = [ ./home-modules.nix ];
 
   home.packages = with pkgs; [
     cowsay
