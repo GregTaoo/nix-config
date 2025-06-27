@@ -9,7 +9,8 @@
     enable = true;
     profiles.default.extensions = with pkgs.vscode-extensions; [
       bbenoist.nix
-      ocamllabs.ocaml-
+      ocamllabs.ocaml-platform
+      mkhl.direnv
     ];
   };
 }
