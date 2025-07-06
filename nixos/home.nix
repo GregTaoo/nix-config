@@ -26,6 +26,7 @@
 
     qq
     wechat-uos
+    feishu
   ];
   
   programs.git = {
