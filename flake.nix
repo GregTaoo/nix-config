@@ -9,13 +9,16 @@
 
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
+    nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
 
   outputs = { 
     self, 
     nixpkgs, 
     home-manager, 
-    nix-darwin, 
+    nix-darwin,
+    nixos-wsl,
     ...
   } @ inputs: 
   let
@@ -41,6 +44,33 @@
 
             home-manager.users.${settings.username} = {
               imports = [ ./nixos/home.nix ];
+            };
+
+            # Pass arguments to home.nix
+            home-manager.extraSpecialArgs = arguments;
+          }
+        ];
+      };
+      "${settings.wslHostName}" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = arguments;
+
+        modules = [
+          nixos-wsl.nixosModules.default
+          {
+            system.stateVersion = "24.05";
+            wsl.enable = true;
+          }
+          ./wsl/configuration.nix
+
+          ./wsl/os-modules.nix
+
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.${settings.username} = {
+              imports = [ ./wsl/home.nix ];
             };
 
             # Pass arguments to home.nix
