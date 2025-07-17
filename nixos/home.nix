@@ -11,6 +11,7 @@
     lolcat
 
     parsec-bin
+    sunshine
 
     kdePackages.kate
     pandoc
@@ -27,6 +28,8 @@
     qq
     wechat-uos
     feishu
+
+    microsoft-edge
   ];
   
   programs.git = {

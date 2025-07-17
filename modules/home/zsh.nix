@@ -54,13 +54,13 @@
       dirshell = ''
         default_content=$(cat <<'EOF'
 { pkgs ? import <nixpkgs> {} }:
-pkgs.mkShell {
-name = "DirEnv";
-buildInputs = with pkgs; [
+  pkgs.mkShell {
+  name = "DirEnv";
+  buildInputs = with pkgs; [
 
-];
-shellHook = "";
-}
+  ];
+  shellHook = "";
+  }
 EOF
         )
       

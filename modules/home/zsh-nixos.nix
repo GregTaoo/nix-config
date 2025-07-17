@@ -17,6 +17,7 @@
     '';
     osshut = "systemctl poweroff";
     osre = "systemctl reboot";
+    docker-close-all = "docker stop $(docker ps -q)";
 
     lolcat = "lolcat 2> /dev/null";
   };
