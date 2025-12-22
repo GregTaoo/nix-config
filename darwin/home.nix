@@ -8,6 +8,8 @@
   home.packages = with pkgs; [
     cowsay
     lolcat
+    llvmPackages.clang
+    llvmPackages.openmp
   ];
   
   programs.git = {
