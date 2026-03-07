@@ -10,6 +10,7 @@
     lolcat
     llvmPackages.clang
     llvmPackages.openmp
+    p7zip
   ];
   
   programs.git = {
