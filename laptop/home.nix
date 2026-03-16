@@ -10,7 +10,7 @@
     cowsay
     lolcat
 
-    parsec-bin
+#    parsec-bin
     sunshine
 
 #    kdePackages.kate
@@ -31,6 +31,8 @@
 
     microsoft-edge
 #    clash-verge-rev
+    # obs-studio
+    imv
   ];
 
   programs.ssh = {
@@ -46,12 +48,6 @@
     enable = true;
     userName = settings.usernameUpper;
     userEmail = settings.email;
-  };
-
-  home.sessionVariables = {
-    HTTP_PROXY = "http://127.0.0.1:7890";
-    HTTPS_PROXY = "http://127.0.0.1:7890";
-    ALL_PROXY = "socks5://127.0.0.1:7890";
   };
 
   # This value determines the Home Manager release that your

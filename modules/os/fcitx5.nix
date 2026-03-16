@@ -11,4 +11,8 @@
       fcitx5-mozc
     ];
   };
+
+  environment.systemPackages = with pkgs; [
+    fcitx5-mellow-themes
+  ];
 }

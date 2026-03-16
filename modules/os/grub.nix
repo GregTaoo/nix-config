@@ -1,11 +1,12 @@
 { config, pkgs, ... }:
 
 let
-  catppuccin-grub = pkgs.fetchFromGitHub {
-    owner = "catppuccin";
-    repo = "grub";
-    rev = "main";
-    sha256 = "sha256-jgM22pvCQvb0bjQQXoiqGMgScR9AgCK3OfDF5Ud+/mk=";
+  yoimiya-grub-theme = pkgs.fetchFromGitHub {
+    owner = "GregTaoo";
+    repo = "Yoimiya-Grub-Theme";
+    rev = "main9ceddf1a0e95090ee4392b3fc909566331851eaa";
+    sha256 = "sha256-pAxrcFnl2LKBum0l5nHio84zb5/8h5LMkxrEaBhmIC4=";
+    # sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   };
 in
 {
@@ -18,7 +19,8 @@ in
     useOSProber = true;
     gfxmodeEfi = "2560x1600";
 
-    theme = "${catppuccin-grub}/src/catppuccin-mocha-grub-theme";
+    theme = yoimiya-grub-theme;
+    # theme = "/home/gregtao/develop/Yoimiya-Grub-Theme";
   };
 
   boot.loader.efi.canTouchEfiVariables = true;

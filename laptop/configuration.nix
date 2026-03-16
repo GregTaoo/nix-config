@@ -85,65 +85,28 @@
     fastfetch
     git
     firefox
-
-    kitty
-    waybar
-    networkmanagerapplet
-    proxychains
-    rofi-wayland
-    rofi-network-manager
-    mako
-    playerctl
-    brightnessctl
-    grim
-    slurp
-    hyprsunset
-    hyprland
-    xwayland
-    hyprpaper
-    hypridle
-    hyprlock
-    libsForQt5.qt5.qtwayland
-    kdePackages.qtwayland
-
-    gcc_multi
   ];
 
   environment.variables = {
-    http_proxy = "http://127.0.0.1:7890";
-    https_proxy = "https://127.0.0.1:7890";
-    all_proxy = "socks5://127.0.0.1:7890";
-    no_proxy = "localhost,127.0.0.1,.shanghaitech.edu.cn,192.168.0.0/16";
-  };
+    http_proxy  = "http://127.0.0.1:7890";
+    https_proxy = "http://127.0.0.1:7890"; 
+    all_proxy   = "socks5://127.0.0.1:7890";
+    
+    HTTP_PROXY  = "http://127.0.0.1:7890";
+    HTTPS_PROXY = "http://127.0.0.1:7890";
+    ALL_PROXY   = "socks5://127.0.0.1:7890";
 
-  # programs.clash-verge = {
-  #   enable = true;
-  # };
-  # systemd.services.clash-verge = {
-  #   enable = true;
-  #   description = "Clash Verge Service Mode";
-  #   serviceConfig = {
-  #     ExecStart = "${config.programs.clash-verge.package}/bin/clash-verge-service";
-  #     Restart = "on-failure";
-  #   };
-  #   wantedBy = ["multi-user.target"];
-  # };
+    no_proxy    = "localhost,127.0.0.1,.shanghaitech.edu.cn,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12";
+    NO_PROXY    = "localhost,127.0.0.1,.shanghaitech.edu.cn,192.168.0.0/16,10.0.0.0/8,172.16.0.0/12";
+  };
+  
+  hardware.bluetooth.enable = true; # 开启蓝牙硬件支持
+  hardware.bluetooth.powerOnBoot = true; # 开机自动启动蓝牙
   
   services.mihomo = {
     enable = true;
-    configFile = "/home/gregtao/proxy/main.yaml";
+    configFile = "/home/${settings.laptopHostName}/proxy/main.yaml";
   };
-
-  programs.hyprland = {
-    enable = true;
-    xwayland.enable = true;
-  };
-  environment.sessionVariables.NIXOS_OZONE_WL = "1";
-
-  # services.mihomo = {
-  #   enable = true;
-  #   configFile = "/home/gregtao/proxy/hdx.yaml";
-  # };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

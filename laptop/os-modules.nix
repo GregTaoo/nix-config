@@ -11,5 +11,6 @@
 #    ../modules/os/docker.nix
 #    ../modules/os/video.nix
     ../modules/os/sunshine.nix
+    ../modules/os/hyprland.nix
   ];
 }
