@@ -19,7 +19,7 @@
 #    kdePackages.kolourpaint
 
 #    obsidian
-#    jetbrains.clion
+    # jetbrains.clion
 #    jetbrains.webstorm
 #    jetbrains.idea-ultimate
 #    jetbrains.datagrip

@@ -68,6 +68,10 @@
     description = settings.usernameUpper;
     extraGroups = [ "networkmanager" "wheel" ];
     shell = pkgs.zsh;
+
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDnhuRDmXAdKy9x0vDrDD5rc26GLax2tHg2T8c/fBwdm gregtaoo@outlook.com"
+    ];
   };
 
   # Allow unfree packages
@@ -85,6 +89,8 @@
     fastfetch
     git
     firefox
+
+    gcc
   ];
 
   environment.variables = {
@@ -105,7 +111,7 @@
   
   services.mihomo = {
     enable = true;
-    configFile = "/home/${settings.laptopHostName}/proxy/main.yaml";
+    configFile = "/home/${settings.username}/proxy/main.yaml";
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -115,6 +121,16 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+  services.openssh = {
+    enable = true;
+    ports = [ 2222 ];
+
+    settings = {
+      PasswordAuthentication = false;   # 禁用密码（推荐）
+      PermitRootLogin = "no";
+      PubkeyAuthentication = true;           # 禁止 root 登录（推荐）
+    };
+  };
 
   # List services that you want to enable:
 

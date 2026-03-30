@@ -13,6 +13,8 @@
       bbenoist.nix
       ocamllabs.ocaml-platform
       mkhl.direnv
+      ms-vscode.cpptools-extension-pack
+      ms-vscode.makefile-tools
     ];
   };
 }
