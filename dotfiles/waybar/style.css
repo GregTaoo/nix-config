@@ -1,0 +1,74 @@
+* {
+    font-family: "JetBrainsMono Nerd Font", "Inter", sans-serif;
+    font-size: 12px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+/* 容器背景：增强存在感，使其更加明显且契合暗色风格 */
+window#waybar {
+    /* 使用比岛屿更深邃的颜色 (Mocha Crust)，透明度调高 */
+    background: rgba(17, 17, 27, 0.85); 
+    border-radius: 12px;
+    /* 给底座也加上微弱的边框，使其在纯黑壁纸上轮廓清晰 */
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin: 5px 10px 0px 10px; 
+    /* 增加微弱的外阴影，让整个 Bar 看起来像漂浮在壁纸上 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+/* 岛屿模块：保持原有配色，但在明显的底座上会更有浮雕感 */
+#workspaces, 
+#window, 
+#clock, 
+#network, 
+#bluetooth,
+#pulseaudio, 
+#battery, 
+#tray {
+    /* 这里的背景色稍浅于 window 背景，拉开层次 */
+    background: rgba(30, 30, 46, 0.9); 
+    color: #cdd6f4;
+    
+    margin: 4px 3px; 
+    padding: 4px 12px; 
+    
+    border-radius: 9px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s ease;
+}
+
+/* --- 以下完全保持你的原有配置不变 --- */
+
+#workspaces {
+    padding: 0 5px;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    margin: 4px 0; 
+    color: #585b70;
+}
+
+#workspaces button.active {
+    color: #89b4fa;
+    background: rgba(137, 180, 250, 0.1);
+    border-radius: 6px;
+}
+
+#clock      { color: #cba6f7; font-weight: bold; }
+#window     { color: #cdd6f4; font-weight: 500; }
+#network    { color: #a6e3a1; }
+#bluetooth  { color: #89b4fa; }
+#pulseaudio { color: #89dceb; }
+#battery    { color: #f9e2af; }
+
+#battery.critical:not(.charging) {
+    color: #f38ba8;
+}
+
+#tray {
+    padding: 0 10px;
+}

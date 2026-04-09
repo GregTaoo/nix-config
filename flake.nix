@@ -69,6 +69,7 @@
             home-manager.users.${settings.username} = {
               imports = [ ./laptop/home.nix ];
             };
+            home-manager.backupFileExtension = "backup";
 
             # Pass arguments to home.nix
             home-manager.extraSpecialArgs = arguments;

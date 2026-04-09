@@ -7,5 +7,6 @@
     ../modules/home/zsh.nix
     ../modules/home/zsh-laptop.nix
     ../modules/home/direnv.nix
+    ../modules/home/hyprland.nix
   ];
 }

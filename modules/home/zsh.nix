@@ -89,7 +89,7 @@ EOF
 
   home.file = {
     ".p10k.zsh" = {
-      source = ./configs/.p10k.zsh;
+      source = ../../dotfiles/.p10k.zsh;
       executable = true;
     };
   };

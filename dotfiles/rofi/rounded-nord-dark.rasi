@@ -1,0 +1,35 @@
+/* GHOST CAPPUCCINO - ACRYLIC DARK PURPLE */
+/* 适配 Hyprland 暗紫色亚克力主题 */
+
+* {
+    /* bg0: 窗口主体背景。使用 #1e1e2e (Mocha Base) 配合 d9 (85%透明度) 产生亚克力质感 */
+    bg0:    #1e1e2ed9; 
+
+    /* bg1: 输入框背景。稍微深一点的紫色，增强层次感 */
+    bg1:    #181825;
+
+    /* bg2: 消息框/辅助背景。使用中性的深紫灰 */
+    bg2:    #31324480;
+
+    /* bg3: 关键高亮色。使用 #cba6f7 (Mauve) 配合 e6 (90%透明度) 匹配你的活动边框 */
+    bg3:    #cba6f7e6;
+
+    /* fg0: 主文字颜色 (Text) */
+    fg0:    #cdd6f4;
+
+    /* fg1: 高亮文字颜色 (Subtext) */
+    fg1:    #bac2de;
+
+    /* fg2: 提示符颜色 (Lavender) */
+    fg2:    #b4befe;
+
+    /* fg3: 占位符颜色 (Surface) */
+    fg3:    #585b70;
+}
+
+@import "rounded-template.rasi"
+
+element selected {
+    /* 选中时文字设为深色底色，以保证在紫色高亮块上的清晰度 */
+    text-color: #11111b;
+}

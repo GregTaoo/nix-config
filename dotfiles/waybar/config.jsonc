@@ -1,0 +1,50 @@
+{
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "height": 35,
+    "modules-left": ["hyprland/workspaces", "hyprland/window"],
+    "modules-center": ["clock"],
+    "modules-right": ["network", "bluetooth", "pulseaudio", "battery", "tray"],
+
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-click": "activate",
+        "format-icons": {
+            "active": "󰮯",
+            "default": "󰊠"
+        },
+        "sort-by-number": true
+    },
+
+    "clock": {
+        "format": "<span> </span>{:%H:%M}",
+        "format-alt": "<span>󰃭 </span>{:%Y-%m-%d}",
+        "tooltip-format": "<tt>{calendar}</tt>"
+    },
+
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-muted": "󰝟",
+        "format-icons": {
+            "default": ["󰕿", "󰖀", "󰕾"]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "network": {
+        "format-wifi": "󰤨 {essid}",
+        "format-ethernet": "󰈀 {ifname}",
+        "format-disconnected": "󰤭",
+        "tooltip-format": "{ipaddr}"
+    },
+
+    "battery": {
+        "states": { "critical": 15 },
+        "format": "{icon} {capacity}%",
+        "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
+    }
+}
