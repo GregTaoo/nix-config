@@ -51,6 +51,30 @@
           }
         ];
       };
+      "${settings.laptopHostName}" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = arguments;
+
+        modules = [
+          # System config
+          ./laptop/configuration.nix
+
+          # Include self-defined modules.
+          ./laptop/os-modules.nix
+
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+
+            home-manager.users.${settings.username} = {
+              imports = [ ./laptop/home.nix ];
+            };
+
+            # Pass arguments to home.nix
+            home-manager.extraSpecialArgs = arguments;
+          }
+        ];
+      };
       "${settings.wslHostName}" = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = arguments;
