@@ -34,20 +34,25 @@
     # obs-studio
     imv
   ];
-
+  
   programs.ssh = {
     enable = true;
-    extraConfig = ''
-      Host github.com
-          User git
-          IdentityFile ~/.ssh/github_ed25519
-          IdentitiesOnly yes
-    '';
+    enableDefaultConfig = false;
+
+    settings = {
+      "github.com" = {
+        User = "git";
+        IdentityFile = "~/.ssh/github_ed25519";
+        IdentitiesOnly = true;
+      };
+    };
   };
   programs.git = {
     enable = true;
-    userName = settings.usernameUpper;
-    userEmail = settings.email;
+    settings.user = {
+      name = settings.usernameUpper;
+      email = settings.email;
+    };
   };
 
   # This value determines the Home Manager release that your

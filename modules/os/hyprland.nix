@@ -18,7 +18,7 @@
 
     kitty
     waybar
-    rofi-wayland
+    rofi
     mako
     hyprsunset
     hyprpaper

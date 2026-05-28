@@ -74,6 +74,8 @@
     ];
   };
 
+  programs.nix-ld.enable = true;  
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
@@ -91,6 +93,7 @@
     firefox
 
     gcc
+    p7zip
   ];
 
   environment.variables = {
