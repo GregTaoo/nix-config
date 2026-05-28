@@ -2,6 +2,6 @@
 
 {
   environment.systemPackages = with pkgs; [
-    ffmpeg_6-full
+    ffmpeg_6
   ];
 }

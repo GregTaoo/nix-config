@@ -15,8 +15,10 @@
   
   programs.git = {
     enable = true;
-    userName = settings.usernameUpper;
-    userEmail = settings.email;
+    settings.user = {
+      name = settings.username;
+      email = settings.email;
+    };
   };
 
   # This value determines the Home Manager release that your
