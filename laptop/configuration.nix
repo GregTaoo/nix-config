@@ -112,9 +112,16 @@
   hardware.bluetooth.enable = true; # 开启蓝牙硬件支持
   hardware.bluetooth.powerOnBoot = true; # 开机自动启动蓝牙
   
-  services.mihomo = {
+  #  services.mihomo = {
+  #    enable = true;
+  #    configFile = "/home/${settings.username}/proxy/main.yaml";
+  #  };
+
+  services.clashtui = {
     enable = true;
-    configFile = "/home/${settings.username}/proxy/main.yaml";
+    package = pkgs.callPackage ../pkgs/clashtui.nix { };
+    enableMihomo = true;
+    enableSingbox = true;
   };
 
   # Some programs need SUID wrappers, can be configured further or are

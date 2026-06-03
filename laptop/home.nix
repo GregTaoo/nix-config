@@ -30,9 +30,11 @@
 #    feishu
 
     microsoft-edge
-#    clash-verge-rev
     # obs-studio
     imv
+    #clash-verge-rev
+
+    codex
   ];
   
   programs.ssh = {

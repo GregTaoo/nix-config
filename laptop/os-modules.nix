@@ -8,6 +8,7 @@
     ../modules/os/font.nix
     ../modules/os/font-nixos.nix
     ../modules/os/i18n.nix
+    ../modules/os/clashtui.nix
 #    ../modules/os/docker.nix
 #    ../modules/os/video.nix
     ../modules/os/sunshine.nix
