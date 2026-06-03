@@ -29,26 +29,26 @@ let
   '';
 
   ensureMihomoConfig = ''
-    ${pkgs.coreutils}/bin/install -d -m 0755 -o ${lib.escapeShellArg cfg.mihomoUser} -g ${lib.escapeShellArg cfg.mihomoGroup} \
+    ${pkgs.coreutils}/bin/install -d -m 2775 -o ${lib.escapeShellArg cfg.mihomoUser} -g ${lib.escapeShellArg cfg.mihomoGroup} \
       ${lib.escapeShellArg mihomoConfigDir}
     ${installIfMissing {
       target = "${mihomoConfigDir}/config.yaml";
       source = "${defaultConfigs}/mihomo/core_override_config.yaml";
       user = cfg.mihomoUser;
       group = cfg.mihomoGroup;
-      mode = "0640";
+      mode = "0660";
     }}
   '';
 
   ensureSingboxConfig = ''
-    ${pkgs.coreutils}/bin/install -d -m 0755 -o ${lib.escapeShellArg cfg.singboxUser} -g ${lib.escapeShellArg cfg.singboxGroup} \
+    ${pkgs.coreutils}/bin/install -d -m 2775 -o ${lib.escapeShellArg cfg.singboxUser} -g ${lib.escapeShellArg cfg.singboxGroup} \
       ${lib.escapeShellArg singboxConfigDir}
     ${installIfMissing {
       target = "${singboxConfigDir}/config.json";
       source = "${defaultConfigs}/sing-box/core_override_config.json";
       user = cfg.singboxUser;
       group = cfg.singboxGroup;
-      mode = "0640";
+      mode = "0660";
     }}
   '';
 
@@ -92,6 +92,13 @@ in
     };
 
     enableSingbox = lib.mkEnableOption "the sing-box core managed by clashtui";
+
+    users = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      example = [ "alice" ];
+      description = "Normal users allowed to access clashtui core state via the enabled core groups.";
+    };
 
     mihomoPackage = lib.mkPackageOption pkgs "mihomo" { };
 
@@ -146,6 +153,11 @@ in
           group = cfg.singboxGroup;
         };
       })
+      (lib.genAttrs cfg.users (_: {
+        extraGroups =
+          lib.optional cfg.enableMihomo cfg.mihomoGroup
+          ++ lib.optional cfg.enableSingbox cfg.singboxGroup;
+      }))
     ];
 
     systemd.tmpfiles.rules =
@@ -154,11 +166,15 @@ in
       ]
       ++ lib.optionals cfg.enableMihomo [
         "d ${cfg.stateDir}/mihomo 0755 ${cfg.mihomoUser} ${cfg.mihomoGroup} -"
-        "d ${mihomoConfigDir} 0755 ${cfg.mihomoUser} ${cfg.mihomoGroup} -"
+        "d ${mihomoConfigDir} 2775 ${cfg.mihomoUser} ${cfg.mihomoGroup} -"
+        "L+ ${cfg.stateDir}/mihomo/mihomo - - - - /run/current-system/sw/bin/mihomo"
+        "z ${mihomoConfigDir}/config.yaml 2775 ${cfg.mihomoUser} ${cfg.mihomoGroup} -"
       ]
       ++ lib.optionals cfg.enableSingbox [
         "d ${cfg.stateDir}/sing-box 0755 ${cfg.singboxUser} ${cfg.singboxGroup} -"
-        "d ${singboxConfigDir} 0755 ${cfg.singboxUser} ${cfg.singboxGroup} -"
+        "d ${singboxConfigDir} 2775 ${cfg.singboxUser} ${cfg.singboxGroup} -"
+        "L+ ${cfg.stateDir}/sing-box/sing-box - - - - /run/current-system/sw/bin/sing-box"
+        "z ${singboxConfigDir}/config.json 2775 ${cfg.singboxUser} ${cfg.singboxGroup} -"
       ];
 
     systemd.services = lib.mkMerge [

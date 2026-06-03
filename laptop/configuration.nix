@@ -111,6 +111,7 @@
   
   hardware.bluetooth.enable = true; # 开启蓝牙硬件支持
   hardware.bluetooth.powerOnBoot = true; # 开机自动启动蓝牙
+  services.timesyncd.enable = true;
   
   #  services.mihomo = {
   #    enable = true;
@@ -122,6 +123,7 @@
     package = pkgs.callPackage ../pkgs/clashtui.nix { };
     enableMihomo = true;
     enableSingbox = true;
+    users = [ settings.username ];
   };
 
   # Some programs need SUID wrappers, can be configured further or are
