@@ -8,6 +8,9 @@
 let
   cfg = config.services.clashtui;
 
+  mihomoAutostart = cfg.enableMihomo && cfg.defaultCore == "mihomo";
+  singboxAutostart = cfg.enableSingbox && cfg.defaultCore == "sing-box";
+
   defaultConfigs = "${cfg.package}/share/clashtui/default_configs";
   mihomoConfigDir = "${cfg.stateDir}/mihomo/config";
   singboxConfigDir = "${cfg.stateDir}/sing-box/config";
@@ -62,7 +65,7 @@ in
 
     stateDir = lib.mkOption {
       type = lib.types.str;
-      default = "/var/lib/clashtui";
+      default = "/opt/clashtui";
       example = "/opt/clashtui";
       description = ''
         System core state directory, corresponding to upstream's system-mode
@@ -81,6 +84,12 @@ in
     };
 
     enableMihomo = lib.mkEnableOption "the Mihomo core managed by clashtui";
+
+    defaultCore = lib.mkOption {
+      type = lib.types.enum [ "mihomo" "sing-box" "none" ];
+      default = "mihomo";
+      description = "Core service to start automatically at boot.";
+    };
 
     enableSingbox = lib.mkEnableOption "the sing-box core managed by clashtui";
 
@@ -156,7 +165,7 @@ in
       (lib.mkIf cfg.initializeCoreConfig {
         clashtui-init = {
           description = "Initialize clashtui core configuration";
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = lib.optionals (mihomoAutostart || singboxAutostart) [ "multi-user.target" ];
           before =
             lib.optional cfg.enableMihomo "clashtui_mihomo.service"
             ++ lib.optional cfg.enableSingbox "clashtui_singbox.service";
@@ -171,7 +180,7 @@ in
         clashtui_mihomo = {
           description = "Mihomo core for clashtui";
           documentation = [ "https://github.com/JohanChane/clashtui" ];
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = lib.optionals mihomoAutostart [ "multi-user.target" ];
           after = [
             "network.target"
             "NetworkManager.service"
@@ -220,7 +229,7 @@ in
         clashtui_singbox = {
           description = "sing-box core for clashtui";
           documentation = [ "https://github.com/JohanChane/clashtui" ];
-          wantedBy = [ "multi-user.target" ];
+          wantedBy = lib.optionals singboxAutostart [ "multi-user.target" ];
           after = [
             "network.target"
             "NetworkManager.service"

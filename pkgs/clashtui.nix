@@ -43,7 +43,10 @@ rustPlatform.buildRustPackage rec {
 set -euo pipefail
 
 config_dir="''${CLASHTUI_CONFIG_DIR:-''${XDG_CONFIG_HOME:-''${HOME}/.config}/clashtui}"
-state_dir="''${CLASHTUI_STATE_DIR:-/var/lib/clashtui}"
+mihomo_config_dir="''${MIHOMO_CONFIG_DIR:-''${XDG_CONFIG_HOME:-''${HOME}/.config}/mihomo}"
+singbox_config_dir="''${SINGBOX_CONFIG_DIR:-''${XDG_CONFIG_HOME:-''${HOME}/.config}/sing-box}"
+mihomo_bin="''${MIHOMO_BIN:-$(command -v mihomo)}"
+singbox_bin="''${SINGBOX_BIN:-$(command -v sing-box)}"
 default_configs="@out@/share/clashtui/default_configs"
 
 install_if_missing() {
@@ -89,17 +92,17 @@ if [ ! -e "$config_dir/config.yaml" ]; then
   cat > "$config_dir/config.yaml" <<EOF_CONFIG
 mihomo:
   core:
-    config_dir: $state_dir/mihomo/config
-    bin_path: @mihomo@
-    config_path: $state_dir/mihomo/config/config.yaml
+    config_dir: $mihomo_config_dir
+    bin_path: $mihomo_bin
+    config_path: $mihomo_config_dir/config.yaml
   core_service:
     service_name: clashtui_mihomo
     is_user: false
 singbox:
   core:
-    bin_path: @singbox@
-    config_dir: $state_dir/sing-box/config
-    config_path: $state_dir/sing-box/config/config.json
+    bin_path: $singbox_bin
+    config_dir: $singbox_config_dir
+    config_path: $singbox_config_dir/config.json
   core_service:
     service_name: clashtui_singbox
     is_user: false
@@ -115,8 +118,6 @@ EOF_WRAPPER
     substituteInPlace $out/bin/clashtui \
       --replace-fail '@runtimeShell@' '#!${stdenv.shell}' \
       --replace-fail '@install@' '${coreutils}/bin/install' \
-      --replace-fail '@mihomo@' '${lib.getExe mihomo}' \
-      --replace-fail '@singbox@' '${lib.getExe sing-box}' \
       --replace-fail '@out@' "$out"
     chmod +x $out/bin/clashtui
   '';
