@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage rec {
 
   postInstall = ''
     mkdir -p $out/share/clashtui
-    cp -r contrib/default_configs $out/share/clashtui/default_configs
+    cp -r contrib $out/share/clashtui/contrib
   '';
 
   meta = {
