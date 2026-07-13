@@ -394,12 +394,11 @@ hl.window_rule({
     float = true,
 })
 
--- Old xwayland force_zero_scaling was commented out; kept disabled.
--- hl.config({
---     xwayland = {
---         force_zero_scaling = true,
---     },
--- })
+hl.config({
+    xwayland = {
+        force_zero_scaling = true,
+    },
+})
 
 -- Layer rules also return a handle.
 -- local overlayLayerRule = hl.layer_rule({

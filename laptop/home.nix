@@ -1,33 +1,42 @@
-{ config, pkgs, inputs, outputs, settings, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  outputs,
+  settings,
+  ...
+}:
 
 {
   home.username = settings.username;
   home.homeDirectory = "/home/${settings.username}";
-  
+
   imports = [ ./home-modules.nix ];
 
   home.packages = with pkgs; [
     cowsay
     lolcat
+    nixfmt
 
-#    parsec-bin
+    (pkgs.callPackage ../pkgs/parsec.nix { })
     sunshine
 
-#    kdePackages.kate
-#    pandoc
-#    thunderbird
-#    kdePackages.kolourpaint
+    #    kdePackages.kate
+    #    pandoc
+    #    thunderbird
+    #    kdePackages.kolourpaint
 
-#    obsidian
-    # jetbrains.clion
-#    jetbrains.webstorm
-#    jetbrains.idea-ultimate
-#    jetbrains.datagrip
-#    wpsoffice
+    #    obsidian
+    jetbrains.clion
+    icu
+    #    jetbrains.webstorm
+    #    jetbrains.idea-ultimate
+    #    jetbrains.datagrip
+    #    wpsoffice
 
     qq
-#    wechat-uos
-#    feishu
+    #    wechat-uos
+    #    feishu
 
     microsoft-edge
     # obs-studio
@@ -35,8 +44,9 @@
     #clash-verge-rev
 
     codex
+    bubblewrap
   ];
-  
+
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
