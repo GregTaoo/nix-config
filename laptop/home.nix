@@ -21,7 +21,7 @@
 #    obsidian
     # jetbrains.clion
 #    jetbrains.webstorm
-#    jetbrains.idea-ultimate
+#    jetbrains.idea
 #    jetbrains.datagrip
 #    wpsoffice
 

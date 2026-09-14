@@ -11,6 +11,8 @@
     llvmPackages.clang
     llvmPackages.openmp
     p7zip
+    codex
+    claude-code
   ];
   
   programs.git = {

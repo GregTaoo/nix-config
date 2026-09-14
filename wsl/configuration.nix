@@ -12,7 +12,7 @@
   environment.systemPackages = with pkgs; [
     vim
     wget
-    neofetch
+    fastfetch
     git
     tmux
   ];
