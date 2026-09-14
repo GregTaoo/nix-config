@@ -20,7 +20,6 @@
   environment.systemPackages = with pkgs; [
     wget
     gnumake
-    flutter
   ];
 
   system.stateVersion = 6;

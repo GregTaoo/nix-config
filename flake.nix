@@ -9,6 +9,7 @@
 
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
   };
@@ -18,6 +19,7 @@
     nixpkgs, 
     home-manager, 
     nix-darwin,
+    nix-homebrew,
     nixos-wsl,
     ...
   } @ inputs: 
@@ -125,6 +127,19 @@
 
             # Pass arguments to home.nix
             home-manager.extraSpecialArgs = arguments;
+          }
+
+          nix-homebrew.darwinModules.nix-homebrew {
+            nix-homebrew = {
+              # Install Homebrew under the default prefix
+              enable = true;
+
+              # Apple Silicon Only: Also install Homebrew under the default Intel prefix for Rosetta 2
+              enableRosetta = true;
+
+              # User owning the Homebrew prefix
+              user = settings.username;
+            };
           }
         ];
       };

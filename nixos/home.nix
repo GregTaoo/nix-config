@@ -21,7 +21,7 @@
     obsidian
     jetbrains.clion
     jetbrains.webstorm
-    jetbrains.idea-ultimate
+    jetbrains.idea
     jetbrains.datagrip
     wpsoffice
 
@@ -34,8 +34,10 @@
   
   programs.git = {
     enable = true;
-    userName = settings.usernameUpper;
-    userEmail = settings.email;
+    settings.user = {
+      name = settings.usernameUpper;
+      email = settings.email;
+    };
   };
 
   # This value determines the Home Manager release that your
