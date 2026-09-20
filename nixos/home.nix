@@ -11,6 +11,7 @@
     lolcat
 
     parsec-bin
+    (pkgs.callPackage ../pkgs/paseo.nix { })
     sunshine
 
     kdePackages.kate

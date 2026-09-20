@@ -19,6 +19,7 @@
     nixfmt
 
     (pkgs.callPackage ../pkgs/parsec.nix { })
+    (pkgs.callPackage ../pkgs/paseo.nix { })
     sunshine
 
     #    kdePackages.kate

@@ -24,12 +24,29 @@
   networking.networkmanager.enable = true;
   networking.firewall.allowedTCPPorts = [ 24800 ];
 
+  # Give the NVIDIA DRM card a stable name across MUX modes and card-number
+  # changes. The GPU is fixed at PCI address 0000:64:00.0 on this laptop.
+  services.udev.extraRules = ''
+    SUBSYSTEM=="drm", KERNEL=="card[0-9]*", KERNELS=="0000:64:00.0", SYMLINK+="dri/nvidia-card"
+  '';
+  environment.sessionVariables = {
+    AQ_DRM_DEVICES = "/dev/dri/nvidia-card";
+    KWIN_DRM_DEVICES = "/dev/dri/nvidia-card";
+  };
+
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
 
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
+  # Keep the SDDM greeter at 100%; Hyprland applies per-output scaling later.
+  services.displayManager.sddm.enableHidpi = false;
+  # Plasma enables the experimental Wayland greeter by default. Keep SDDM on
+  # X11; its KWin greeter fails before login on this NVIDIA dGPU-only setup.
+  services.displayManager.sddm.wayland.enable = false;
+  services.displayManager.defaultSession = "hyprland-uwsm";
+  programs.hyprland.withUWSM = true;
   services.desktopManager.plasma6.enable = true;
 
   # Configure keymap in X11

@@ -17,11 +17,18 @@
 ---- MONITORS ----
 ------------------
 
--- See https://wiki.hypr.land/Configuring/Basics/Monitors/
+-- In dGPU-only MUX mode HDMI-A-1 is screen 2 and eDP-2 is the laptop panel.
 hl.monitor({
-    output   = "",
+    output   = "HDMI-A-1",
+    mode     = "highrr",
+    position = "0x0",
+    scale    = "1.25",
+})
+
+hl.monitor({
+    output   = "eDP-2",
     mode     = "preferred",
-    position = "auto",
+    position = "2048x0",
     scale    = "auto",
 })
 

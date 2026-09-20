@@ -33,5 +33,15 @@
     enable = true;
     xwayland.enable = true;
   };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = with pkgs; [
+      xdg-desktop-portal-hyprland
+      xdg-desktop-portal-gtk
+    ];
+    config.hyprland.default = [ "hyprland" "gtk" ];
+  };
+
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
 }
