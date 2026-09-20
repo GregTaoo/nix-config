@@ -22,6 +22,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall.allowedTCPPorts = [ 24800 ];
 
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.

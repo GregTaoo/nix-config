@@ -28,7 +28,10 @@
 
     #    obsidian
     jetbrains.clion
+    jetbrains.rust-rover
     icu
+
+    deskflow
     #    jetbrains.webstorm
     #    jetbrains.idea-ultimate
     #    jetbrains.datagrip

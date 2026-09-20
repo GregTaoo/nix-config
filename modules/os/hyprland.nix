@@ -4,7 +4,7 @@
   environment.systemPackages = with pkgs; [
     hyprland
     xwayland
-    libsForQt5.qt5.qtwayland
+    qt5.qtwayland
     kdePackages.qtwayland
 
     wl-clipboard
