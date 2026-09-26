@@ -49,6 +49,10 @@
 
     codex
     bubblewrap
+    
+    qjackctl
+    jack2
+    alsa-utils
   ];
 
   programs.ssh = {

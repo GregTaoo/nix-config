@@ -22,7 +22,7 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [ 24800 ];
+  networking.firewall.allowedTCPPorts = [ 24800 4242 ];
 
   # Give the NVIDIA DRM card a stable name across MUX modes and card-number
   # changes. The GPU is fixed at PCI address 0000:64:00.0 on this laptop.
